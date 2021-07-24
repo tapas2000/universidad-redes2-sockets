@@ -149,7 +149,7 @@ public class Prueba {
 			if(encontrada.getSaldo()==0) {
 				if(encontrada.getBolsilloId().equals("")) {
 					lstCuentas.remove(llave);
-					return "Nï¿½mero de cuenta eliminado con exito " + numeroCuenta;	
+					return "Número de cuenta eliminado con exito " + numeroCuenta;	
 				}
 				return "Error, Bolsillo existente, en cuenta " + numeroCuenta;
 			}
@@ -207,10 +207,10 @@ public class Prueba {
 		if (!llave.equals("")) {
 			Cuenta encontrada = lstCuentas.get(llave); 
 			encontrada.setSaldo(encontrada.getSaldo()+deposito);
-			return "Depï¿½sito exitoso en cuenta de ahorros " + numeroCuenta;
+			return "Depósito exitoso en cuenta de ahorros " + numeroCuenta;
 		}
 		
-		return "ERROR en deposito de cuenta de ahorros. Nï¿½mero de cuenta no encontrada";
+		return "ERROR en deposito de cuenta de ahorros. Número de cuenta no encontrada";
 	}
 
 	/**
@@ -233,7 +233,7 @@ public class Prueba {
 			return "ERROR. Fondos insuficientes en cuenta de ahorros " + numeroCuenta;
 		}
 		
-		return "ERROR en retiro de cuenta de ahorros. Nï¿½mero de cuenta no encontrada";
+		return "ERROR en retiro de cuenta de ahorros. Número de cuenta no encontrada";
 	}
 	/**
 	 * Metodo que traslada el dinero al saldo del bolsillo de la misma cuenta
@@ -258,7 +258,7 @@ public class Prueba {
 			}
 			return "ERROR. No existe bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "ERROR en traslado de cuenta de ahorros. Nï¿½mero de cuenta no encontrada";
+		return "ERROR en traslado de cuenta de ahorros. Número de cuenta no encontrada";
 	}
 	
 	/**
@@ -276,11 +276,11 @@ public class Prueba {
 			if(!encontrada.getBolsilloId().equals(numeroCuenta+"b")) {
 				encontrada.setBolsilloId(numeroCuenta+"b");
 				encontrada.setBolsilloSaldo(0);
-				return "Creaciï¿½n de bolsillo exitosa " +  encontrada.getBolsilloId();
+				return "Creación de bolsillo exitosa " +  encontrada.getBolsilloId();
 			}
 			return "ERROR. Ya existe un bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "ERROR en traslado de cuenta de ahorros. Nï¿½mero de cuenta no encontrada";
+		return "ERROR en traslado de cuenta de ahorros. Número de cuenta no encontrada";
 	}
 	
 	/**
@@ -300,11 +300,11 @@ public class Prueba {
 				encontrada.setBolsilloId("");
 				encontrada.setSaldo(encontrada.getSaldo()+ encontrada.getBolsilloSaldo());
 				encontrada.setBolsilloSaldo(0);
-				return "Cancelaciï¿½n de bolsillo exitosa " +  numeroCuenta;
+				return "Cancelación de bolsillo exitosa " +  numeroCuenta;
 			}
 			return "ERROR. No existe un bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "ERROR en eliminaciï¿½n de bolsillo. Nï¿½mero de cuenta no encontrada";
+		return "ERROR en eliminación de bolsillo. Número de cuenta no encontrada";
 	}
 	
 	//<---------------- Metodos de Apoyo ---------------------->
@@ -328,5 +328,4 @@ public class Prueba {
 		
 		return "";
 	}
-
 }

@@ -21,20 +21,20 @@ public class EchoTCPClientProtocol {
 		String mensaje = "", msg, msg2;
 		
 		//while(!salir) {
-			System.out.println("1. Abrir una cuenta");
-			System.out.println("2. Crear un bolsillo");
-			System.out.println("3. Cancelar bolsillo");
-			System.out.println("4. Cancelar cuenta de ahorros");
-			System.out.println("5. Depositar dinero en una cuenta");
-			System.out.println("6. Retirar dinero de una cuenta");
-			System.out.println("7. Trasladar dinero a un bolsillo");
-			System.out.println("8. Consultar saldo");
-			System.out.println("9. Salir");
+		System.out.println("1. Abrir una cuenta");
+		System.out.println("2. Crear un bolsillo");
+		System.out.println("3. Cancelar bolsillo");
+		System.out.println("4. Cancelar cuenta de ahorros");
+		System.out.println("5. Depositar dinero en una cuenta");
+		System.out.println("6. Retirar dinero de una cuenta");
+		System.out.println("7. Trasladar dinero a un bolsillo");
+		System.out.println("8. Consultar saldo");
+		System.out.println("9. Salir");
 			
-			System.out.println("Por favor, escribe el número de la operación que desea realizar:");
-			opcion = SCANNER.nextInt();
+		System.out.println("Por favor, escribe el número de la operación que desea realizar:");
+		opcion = SCANNER.nextInt();
 			
-			switch (opcion) {
+		switch (opcion) {
 			case 1:
 				System.out.println("Por favor, ingrese su/s nombre/s:");
 				msg = "ABRIR_CUENTA," + SCANNER.next() + " ";
@@ -92,11 +92,11 @@ public class EchoTCPClientProtocol {
 				break;
 			default:
 				break;
-			}
-			toNetwork.println(mensaje);
-			
-			String fromServer = fromNetwork.readLine();
-			System.out.println("From server: " + fromServer);
+		}
+		toNetwork.println(mensaje);
+		
+		String fromServer = fromNetwork.readLine();
+		System.out.println("From server: " + fromServer);
 		//}
 	}
 
