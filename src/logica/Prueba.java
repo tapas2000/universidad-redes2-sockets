@@ -32,15 +32,17 @@ public class Prueba {
 		int validacion = buscarPropietario(nuevoPropietario, lstCuentas);
 		
 		if (validacion < 0) {
-			Cuenta nuevo = new Cuenta(lstCuentas.size(), nuevoPropietario);
+			int numCuenta = lstCuentas.size();
+			Cuenta nuevo = new Cuenta(numCuenta, nuevoPropietario);
 			lstCuentas.put(lstCuentas.size(), nuevo);
 			//Tomar fecha y hora actual
 			DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			System.out.println("yyyy/MM/dd HH:mm:ss-> "+date.format(LocalDateTime.now()));
 			
-			return "Cuenta de ahorros abierta con exito, Datos :"+ (lstCuentas.size()-1)+"-"+nuevoPropietario+"-"+0; 
+			return "Apertura exitosa de cuenta de ahorros " + numCuenta;
+			//return "Cuenta de ahorros abierta con exito, Datos :"+ (lstCuentas.size()-1)+"-"+nuevoPropietario+"-"+0; 
 		}else {
-			return "Propietario no encontrado";
+			return "Error en la apertura de cuenta de ahorros. Nombre de usuario repetido";
 		}
 	}
 	
