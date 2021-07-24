@@ -4,15 +4,18 @@ public class Cuenta {
 	
 	public int numeroCuenta;
 	public String nombrePropietario;
-	public double sueldo;
-	public Cuenta bolsillo;
+	public double saldo;
+	public String bolsilloId;
+	public double bolsilloSaldo;
 	
 	public Cuenta(int numeroCuenta, String nombrePropietario) {
 		super();
 		this.numeroCuenta = numeroCuenta;
 		this.nombrePropietario = nombrePropietario;
-		this.sueldo = 0;
-	}	
+		this.saldo = 0;
+		this.bolsilloId = "";
+		this.bolsilloSaldo = 0;
+	}
 	
 	public int getNumeroCuenta() {
 		return numeroCuenta;
@@ -30,19 +33,36 @@ public class Cuenta {
 		this.nombrePropietario = nombrePropietario;
 	}
 	
-	public double getSueldo() {
-		return sueldo;
-	}
 	
-	public void setSueldo(double sueldo) {
-		this.sueldo = sueldo;
+	public double getSaldo() {
+		return saldo;
 	}
-	
-	public Cuenta getBolsillo() {
-		return bolsillo;
+
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
+
+
+	public String getBolsilloId() {
+		return bolsilloId;
+	}
+
+
+	public void setBolsilloId(String bolsilloId) {
+		this.bolsilloId = bolsilloId;
+	}
+
+
+	public double getBolsilloSaldo() {
+		return bolsilloSaldo;
+	}
+
+
+	public void setBolsilloSaldo(double bolsilloSaldo) {
+		this.bolsilloSaldo = bolsilloSaldo;
+	}
+
 	
-	public void setBolsillo(Cuenta bolsillo) {
-		this.bolsillo = bolsillo;
-	}	
+	
 }
