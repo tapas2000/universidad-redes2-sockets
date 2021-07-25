@@ -11,7 +11,6 @@ import java.util.HashMap;
 public class EchoTCPServerProtocol {
 	private static PrintWriter toNetwork;
 	private static BufferedReader fromNetwork;
-
 	private static HashMap<String, Cuenta> lstCuentas =  new HashMap<>();
 	
 	public static void protocol(Socket socket) throws IOException {

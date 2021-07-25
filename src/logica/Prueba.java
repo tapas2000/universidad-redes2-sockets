@@ -349,9 +349,9 @@ public class Prueba {
 	}
 	
 	/**
-	 * Método encargado de cargar los datos automáticamente
-	 * @param nombreArchivo
-	 * @return
+	 * Método encargado de cargar los datos automáticamente de las transacciones del archivo de texto
+	 * @param nombreArchivo nombre del archivo de texto 
+	 * @return lista de mensajes de exito o error 
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */

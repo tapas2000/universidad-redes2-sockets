@@ -13,6 +13,13 @@ public class EchoTCPClientProtocol {
 	private static PrintWriter toNetwork;
 	private static BufferedReader fromNetwork;
 	
+	/**
+	 * Metodo que une el mensaje con la información enviada desde EchoTCPCliente dependiendo 
+	 * la opción elegida por medio de un switch para enviar esa información al servidor y recibir su respuesta 
+	 * para imprimir por medio de la consola 
+	 * @param socket Se envía el cliente como socket ClienteSideSocket 
+	 * @throws Exception
+	 */
 	public static void protocol(Socket socket) throws Exception {
 		createStreams(socket);
 		
@@ -111,7 +118,72 @@ public class EchoTCPClientProtocol {
 		
 		System.out.println("From server: " + fromServer2);
 	}
-
+	
+	/**
+	 * Metodo que une el mensaje con la información enviada desde EchoTCPCliente dependiendo 
+	 * la opción enviada por medio de un switch para enviar esa información al servidor y recibir su respuesta 
+	 * por medio del fromNetwork y toNetwork
+	 * @param socket Se envía el cliente como socket ClienteSideSocket 
+	 * @param mensaje1 String con la información correspondiente de la clase EchoTCPCliente
+	 * @param mensaje2 String con la información correspondiente de la clase EchoTCPCliente
+	 * @param op valor entero que tiene la opción seleccionada en la clase EchoTCPCliente
+	 * @return un String con la información que envia el servidor como respuesta
+	 * @throws Exception
+	 */
+	public static String protocol2(Socket socket, String mensaje1, String mensaje2, int op) throws Exception {
+		createStreams(socket);
+        
+        int opcion = op +1;
+		boolean salir = false;
+		String mensaje = "", msg, msg2;
+				
+		switch (opcion) {
+			case 1:
+				msg ="ABRIR_CUENTA," + mensaje1 + " ";
+				msg2 = mensaje2;
+				mensaje = msg + msg2;
+				break;
+			case 2:
+				mensaje = "ABRIR_BOLSILLO," + mensaje1;
+				System.out.println("Mensaje: " + mensaje);
+				break;
+			case 3:
+				mensaje = "CANCELAR_BOLSILLO," + mensaje1;
+				break;
+			case 4:
+				System.out.println("Entro a la opción 4");
+				mensaje = "CANCELAR_CUENTA," + mensaje1;
+				break;
+			case 5:
+				msg = "DEPOSITAR," + mensaje1;
+				msg2 = mensaje2;
+				mensaje = msg +","+ msg2;
+				break;
+			case 6:
+				msg = "RETIRAR," +mensaje1;
+				msg2 = mensaje2;
+				mensaje = msg +","+ msg2;
+				break;
+			case 7:
+				msg = "TRASLADAR," + mensaje1;
+				msg2 = mensaje2;
+				mensaje = msg +","+ msg2;
+				break;
+			case 8:
+				mensaje = "CONSULTAR," + mensaje1;
+				break;
+			default:
+				break;
+		}
+		
+		toNetwork.println(mensaje);
+        
+		String fromServer = fromNetwork.readLine();
+		System.out.println("From server: " + fromServer);
+		return fromServer;
+		
+	}
+	
 	private static void createStreams(Socket socket) throws IOException {
 		toNetwork = new PrintWriter(socket.getOutputStream(), true);
 		fromNetwork = new BufferedReader(new InputStreamReader(socket.getInputStream()));
