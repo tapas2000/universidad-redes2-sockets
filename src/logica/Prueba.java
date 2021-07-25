@@ -36,6 +36,7 @@ public class Prueba {
 		System.out.println("---------------------------------");
 		System.out.println(lstCuentas.containsKey("Stefania Aguirre ".trim()));
 		System.out.println(agregarCuenta(" Stefania Aguirre", lstCuentas));
+		System.out.println(lstCuentas.get("Stefania Aguirre").getNumeroCuenta());
 		System.out.println(lstCuentas.containsKey("Stefania Aguirre"));
 		System.out.println();
 		
@@ -116,7 +117,15 @@ public class Prueba {
 		System.out.println("---------------------------------");
 		mensajes=guardarMensaje(mensajes,"Abrir Cuenta","Prueba");
 		mensajes=guardarMensaje(mensajes,"Abrir Bolsillo", "Prueba2");
-		System.out.println(mensajes);
+		System.out.println("Mensajes : "+mensajes);
+		
+		System.out.println("---------------------------------");
+		System.out.println(eliminarCuenta(2, lstCuentas));
+		System.out.println(eliminarCuenta(1, lstCuentas));
+		System.out.println(lstCuentas.keySet());
+		System.out.println("Cuenta prueba: "+agregarCuenta(" Stefania Aguirre", lstCuentas));
+		System.out.println(lstCuentas.get("Stefania Aguirre").getNumeroCuenta());
+		System.out.println(lstCuentas.keySet());
 	}
 	
 	//<---------------- Metodos de Transacci�n ---------------------->
@@ -134,16 +143,32 @@ public class Prueba {
 		}
 		
 		//Agregar la nueva cuenta		
-		int numCuenta = lstCuentas.size();
-		String llave = buscarNumeroCuenta(numCuenta-1,lstCuentas);
+		int numCuenta = lstCuentas.size();		
+		String llave = buscarNumeroCuenta(numCuenta,lstCuentas);
+		System.out.println(numCuenta +" llave : " +llave);
 		
-		numCuenta = lstCuentas.get(llave).getNumeroCuenta();
-		
-		Cuenta nuevo =  new Cuenta(numCuenta+1, nuevoPropietario.trim());
+		if(lstCuentas.size()>0) {
+			while (llave=="") {
+				System.out.println(numCuenta + llave);
+				numCuenta = numCuenta-1;
+				llave = buscarNumeroCuenta(numCuenta,lstCuentas);
+			}
+			numCuenta = lstCuentas.get(llave).getNumeroCuenta() + 1;
+			
+			Cuenta nuevo =  new Cuenta(numCuenta, nuevoPropietario.trim());
+			lstCuentas.put(nuevoPropietario.trim(),nuevo);
+			
+			return "Apertura exitosa de cuenta de ahorros "+ numCuenta;		
+		}
+		Cuenta nuevo =  new Cuenta(0, nuevoPropietario.trim());
 		lstCuentas.put(nuevoPropietario.trim(),nuevo);
 		
-		return "Apertura exitosa de cuenta de ahorros "+ numCuenta;		
-	}
+		return "Apertura exitosa de cuenta de ahorros "+ 0;	
+		
+		}
+		
+		
+		
 	/**
 	 * Metodo que elimina una nueva cuenta verificando si esta existe y eliminandola si lo hace
 	 * @param numeroCuenta Es el numero de cuenta la que se desea hacer el deposito
