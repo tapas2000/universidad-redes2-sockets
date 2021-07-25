@@ -12,6 +12,8 @@ public class Prueba {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		HashMap<String, Cuenta> lstCuentas =  new HashMap<>();
+		String mensajes = "";
+		
 		//Datos de prueba
 		Cuenta a =  new Cuenta(0, "Juan Tapasco");
 		Cuenta b =  new Cuenta(1, "Angelica Arroyave");
@@ -110,6 +112,11 @@ public class Prueba {
 		System.out.println("Eliminar una cuenta que si tiene bolsillo: " + eliminarCuenta(2, lstCuentas));
 		System.out.println("Eliminar una cuenta que no tiene bolsillo: " + eliminarCuenta(2, lstCuentas));
 		System.out.println();
+		
+		System.out.println("---------------------------------");
+		mensajes=guardarMensaje(mensajes,"Abrir Cuenta","Prueba");
+		mensajes=guardarMensaje(mensajes,"Abrir Bolsillo", "Prueba2");
+		System.out.println(mensajes);
 	}
 	
 	//<---------------- Metodos de Transacciï¿½n ---------------------->
@@ -126,9 +133,13 @@ public class Prueba {
 			return "ERROR en apertura de cuenta de ahorros. Nombre de usuario repetido";
 		}
 		
-		//Agregar la nueva cuenta
+		//Agregar la nueva cuenta		
 		int numCuenta = lstCuentas.size();
-		Cuenta nuevo =  new Cuenta(numCuenta, nuevoPropietario.trim());
+		String llave = buscarNumeroCuenta(numCuenta-1,lstCuentas);
+		
+		numCuenta = lstCuentas.get(llave).getNumeroCuenta();
+		
+		Cuenta nuevo =  new Cuenta(numCuenta+1, nuevoPropietario.trim());
 		lstCuentas.put(nuevoPropietario.trim(),nuevo);
 		
 		return "Apertura exitosa de cuenta de ahorros "+ numCuenta;		
@@ -151,12 +162,12 @@ public class Prueba {
 					lstCuentas.remove(llave);
 					return "Número de cuenta eliminado con exito " + numeroCuenta;	
 				}
-				return "Error, Bolsillo existente, en cuenta " + numeroCuenta;
+				return "Error Bolsillo existente, en cuenta " + numeroCuenta;
 			}
-			return "Error, Saldo existente en cuenta " + numeroCuenta;
+			return "Error Saldo existente en cuenta " + numeroCuenta;
 		}
 		
-		return "Error, Cuenta no encontrada "+ numeroCuenta;		
+		return "Error Cuenta no encontrada "+ numeroCuenta;		
 	}
 	
 	/**
@@ -191,7 +202,7 @@ public class Prueba {
 			return "Saldo existente en cuenta " + encontrada.getSaldo();
 		}
 		
-		return "Error, Cuenta no encontrada "+ numeroCuenta;		
+		return "Error Cuenta no encontrada "+ numeroCuenta;		
 	}
 	/**
 	 * Metodo que deposita a una cuenta dada el numero de esta
@@ -210,7 +221,7 @@ public class Prueba {
 			return "Depósito exitoso en cuenta de ahorros " + numeroCuenta;
 		}
 		
-		return "ERROR en deposito de cuenta de ahorros. Número de cuenta no encontrada";
+		return "Error en deposito de cuenta de ahorros. Número de cuenta no encontrada";
 	}
 
 	/**
@@ -230,10 +241,10 @@ public class Prueba {
 				encontrada.setSaldo(encontrada.getSaldo()-retiro);
 				return "Retiro exitoso en cuenta de ahorros " + numeroCuenta;
 			}
-			return "ERROR. Fondos insuficientes en cuenta de ahorros " + numeroCuenta;
+			return "Error Fondos insuficientes en cuenta de ahorros " + numeroCuenta;
 		}
 		
-		return "ERROR en retiro de cuenta de ahorros. Número de cuenta no encontrada";
+		return "Error en retiro de cuenta de ahorros. Número de cuenta no encontrada";
 	}
 	/**
 	 * Metodo que traslada el dinero al saldo del bolsillo de la misma cuenta
@@ -254,11 +265,11 @@ public class Prueba {
 					encontrada.setBolsilloSaldo(encontrada.getBolsilloSaldo() + traslado);
 					return "Traslado de saldo exitoso a cuenta bolsilo  " + encontrada.getBolsilloId() ;
 				}
-				return "ERROR. Fondos insuficientes en cuenta de ahorros " + numeroCuenta;
+				return "Error Fondos insuficientes en cuenta de ahorros " + numeroCuenta;
 			}
-			return "ERROR. No existe bolsillo en la cuenta " + numeroCuenta;
+			return "Error No existe bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "ERROR en traslado de cuenta de ahorros. Número de cuenta no encontrada";
+		return "Error en traslado de cuenta de ahorros. Número de cuenta no encontrada";
 	}
 	
 	/**
@@ -278,9 +289,9 @@ public class Prueba {
 				encontrada.setBolsilloSaldo(0);
 				return "Creación de bolsillo exitosa " +  encontrada.getBolsilloId();
 			}
-			return "ERROR. Ya existe un bolsillo en la cuenta " + numeroCuenta;
+			return "Error Ya existe un bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "ERROR en traslado de cuenta de ahorros. Número de cuenta no encontrada";
+		return "Error en traslado de cuenta de ahorros. Número de cuenta no encontrada";
 	}
 	
 	/**
@@ -302,9 +313,9 @@ public class Prueba {
 				encontrada.setBolsilloSaldo(0);
 				return "Cancelación de bolsillo exitosa " +  numeroCuenta;
 			}
-			return "ERROR. No existe un bolsillo en la cuenta " + numeroCuenta;
+			return "Error No existe un bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "ERROR en eliminación de bolsillo. Número de cuenta no encontrada";
+		return "Error en eliminación de bolsillo. Número de cuenta no encontrada";
 	}
 	
 	//<---------------- Metodos de Apoyo ---------------------->
@@ -327,5 +338,14 @@ public class Prueba {
 		}
 		
 		return "";
+	}
+	public static String guardarMensaje(String registro, String accion,String mensaje) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		String[] tiempo = dtf.format(LocalDateTime.now()).split(" "); 
+		
+		registro += "{" +tiempo[0]+","+tiempo[1]+","+accion+","+mensaje+"},\n";
+		
+		return registro;
+		
 	}
 }
