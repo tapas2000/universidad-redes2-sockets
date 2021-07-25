@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EchoTCPServerProtocol {
@@ -22,7 +23,6 @@ public class EchoTCPServerProtocol {
 		
 		String[] info = message.split(","); 
 		String key = info[0];
-		System.out.println(lstCuentas);
 		Prueba pa = new Prueba();
 		int cuentaAhorros;
 		String answer = "", respuesta = "", nombre, numCuentaBolsillo;
@@ -32,7 +32,6 @@ public class EchoTCPServerProtocol {
 			case "ABRIR_CUENTA":
 				nombre = info[1].trim();
 				respuesta = pa.agregarCuenta(nombre, lstCuentas);
-				answer = respuesta;
 				break;
 			case "ABRIR_BOLSILLO":
 				cuentaAhorros = Integer.parseInt(info[1]);
@@ -65,13 +64,36 @@ public class EchoTCPServerProtocol {
 				String cuentaA = info[1];
 				respuesta = pa.consultarSaldoCuenta(cuentaA, lstCuentas);
 				break;
+			case "CARGAR":
+				String nombreArchivo = info[1];
+				respuesta = mensajeServidor(pa.cargarTransacciones(nombreArchivo));
+				break;
 			default:
 				break;
 		}
+		
 		answer = respuesta;
 		
 		toNetwork.println(answer);
-		System.out.println("Sent to client: " + answer);
+		
+		String[] ar = answer.split("-");
+		String answer2 = "";
+		
+		for(int i = 0; i < ar.length; i++) {
+			answer2 += ar[i] + "\n";
+		}
+		
+		System.out.println("Sent to client: " + answer2);
+	}
+	
+	public static String mensajeServidor(ArrayList<String> mensajes) {
+		String respuesta = "";
+		
+		for(int i = 0; i < mensajes.size(); i++) {
+			respuesta += mensajes.get(i) + "-";
+		}
+		
+		return respuesta;
 	}
 
 	private static void createStreams(Socket socket) throws IOException {
