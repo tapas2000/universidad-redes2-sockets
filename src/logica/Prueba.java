@@ -1,5 +1,9 @@
 package logica;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
@@ -8,10 +12,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Prueba {
-
+	private static HashMap<String, Cuenta> lstCuentas =  new HashMap<>();
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		HashMap<String, Cuenta> lstCuentas =  new HashMap<>();
+//		HashMap<String, Cuenta> lstCuentas =  new HashMap<>();
 		String mensajes = "";
 		
 		//Datos de prueba
@@ -145,11 +150,11 @@ public class Prueba {
 		//Agregar la nueva cuenta		
 		int numCuenta = lstCuentas.size();		
 		String llave = buscarNumeroCuenta(numCuenta,lstCuentas);
-		System.out.println(numCuenta +" llave : " +llave);
+		//System.out.println(numCuenta +" llave : " +llave);
 		
 		if(lstCuentas.size()>0) {
 			while (llave=="") {
-				System.out.println(numCuenta + llave);
+				//System.out.println(numCuenta + llave);
 				numCuenta = numCuenta-1;
 				llave = buscarNumeroCuenta(numCuenta,lstCuentas);
 			}
@@ -343,6 +348,54 @@ public class Prueba {
 		return "Error en eliminación de bolsillo. Número de cuenta no encontrada";
 	}
 	
+	/**
+	 * Método encargado de cargar los datos automáticamente
+	 * @param nombreArchivo
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public static ArrayList<String> cargarTransacciones(String nombreArchivo) throws FileNotFoundException, IOException {
+		String cadena;
+		ArrayList<String> respuesta = new ArrayList<>();
+		String ruta = "\\" + nombreArchivo + ".txt";
+		
+		FileReader fr = new FileReader(ruta);
+		BufferedReader br = new BufferedReader(fr);
+		
+		while((cadena = br.readLine()) != null) {
+			String[] info = cadena.split(",");
+			if(info[0].equals("ABRIR_CUENTA")) { 
+				respuesta.add(agregarCuenta(info[1], lstCuentas));
+			}
+			if(info[0].equals("ABRIR_BOLSILLO")) {
+				respuesta.add(abrirBolsillo(Integer.parseInt(info[1]), lstCuentas));
+			}
+			if(info[0].equals("CANCELAR_BOLSILLO")) {
+				respuesta.add(cerrarBolsillo(info[1], lstCuentas));
+			}
+			if(info[0].equals("CANCELAR_CUENTA")) {
+				respuesta.add(eliminarCuenta(Integer.parseInt(info[1]), lstCuentas));
+			}
+			if(info[0].equals("DEPOSITAR")) {
+				respuesta.add(depositar(Integer.parseInt(info[1]), Double.parseDouble(info[2]), lstCuentas));
+			}
+			if(info[0].equals("RETIRAR")) {
+				respuesta.add(retirar(Integer.parseInt(info[1]), Double.parseDouble(info[2]), lstCuentas));
+			}
+			if(info[0].equals("TRASLADAR")) {
+				respuesta.add(trasladar(Integer.parseInt(info[1]), Double.parseDouble(info[2]), lstCuentas));
+			}
+			if(info[0].equals("CONSULTAR")) {
+				respuesta.add(consultarSaldoCuenta(info[1], lstCuentas));
+			}
+		}
+		
+		br.close();
+		
+		return respuesta;
+	}
+	
 	//<---------------- Metodos de Apoyo ---------------------->
 	/**
 	 * Metodo que busca a un propietario dentro de la lista de propietarios comparando sus numero de cuenta
@@ -364,6 +417,14 @@ public class Prueba {
 		
 		return "";
 	}
+	
+	/**
+	 * Método para guardar los mensajes de las operaciones que se van realizando
+	 * @param registro variable donde están los mensajes guardados
+	 * @param accion palabra clave de la operación bancaria
+	 * @param mensaje mensaje de respuesta enviado por el servidor al cliente
+	 * @return el registro completo de las operaciones bancarias que se han realizado
+	 */
 	public static String guardarMensaje(String registro, String accion,String mensaje) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		String[] tiempo = dtf.format(LocalDateTime.now()).split(" "); 

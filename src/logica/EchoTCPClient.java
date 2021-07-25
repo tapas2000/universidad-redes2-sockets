@@ -16,11 +16,9 @@ public class EchoTCPClient {
 		clientSideSocket = new Socket(SERVER, PORT);
 		System.out.println("Conexión aceptada en el lado del servidor");
 		
-		while(true) {
-			EchoTCPClientProtocol.protocol(clientSideSocket);
+		EchoTCPClientProtocol.protocol(clientSideSocket);
 			
-			clientSideSocket.close();
-		}
+		clientSideSocket.close();
 	}
 	
 	public static void main(String[] args) throws Exception {

@@ -20,7 +20,6 @@ public class EchoTCPClientProtocol {
 		boolean salir = false;
 		String mensaje = "", msg, msg2;
 		
-		//while(!salir) {
 		System.out.println("1. Abrir una cuenta");
 		System.out.println("2. Crear un bolsillo");
 		System.out.println("3. Cancelar bolsillo");
@@ -29,7 +28,8 @@ public class EchoTCPClientProtocol {
 		System.out.println("6. Retirar dinero de una cuenta");
 		System.out.println("7. Trasladar dinero a un bolsillo");
 		System.out.println("8. Consultar saldo");
-		System.out.println("9. Salir");
+		System.out.println("9. Carga automática");
+		System.out.println("10. Salir");
 			
 		System.out.println("Por favor, escribe el número de la operación que desea realizar:");
 		opcion = SCANNER.nextInt();
@@ -88,16 +88,28 @@ public class EchoTCPClientProtocol {
 				System.out.println("Mensaje: " + mensaje);
 				break;
 			case 9:
+				mensaje = "CARGAR,transacciones";
+				System.out.println("Mensaje: " + mensaje);
+				break;
+			case 10:
 				salir = true;
 				break;
 			default:
 				break;
 		}
+		
 		toNetwork.println(mensaje);
 		
 		String fromServer = fromNetwork.readLine();
-		System.out.println("From server: " + fromServer);
-		//}
+		
+		String[] fs = fromServer.split("-");
+		String fromServer2 = "";
+		
+		for(int i = 0; i < fs.length; i++) {
+			fromServer2 += fs[i] + "\n";
+		}		
+		
+		System.out.println("From server: " + fromServer2);
 	}
 
 	private static void createStreams(Socket socket) throws IOException {
