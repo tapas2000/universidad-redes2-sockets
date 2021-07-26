@@ -28,7 +28,7 @@ public class Prueba {
 		Cuenta b =  new Cuenta(1, "Angelica Arroyave");
 		
 		//Agregar Datos
-		System.out.println("---------------------------------");
+		System.out.println("---------------Agregar Datos------------------");
 		lstCuentas.put("Juan Tapasco", a);
 		lstCuentas.put("Angelica Arroyave", b);
 		System.out.println(lstCuentas.containsKey(0));
@@ -36,29 +36,29 @@ public class Prueba {
 		System.out.println();
 		
 		//Buscar
-		System.out.println("---------------------------------");
-		System.out.println(lstCuentas.containsKey("Juan Tapasco"));
-		System.out.println(lstCuentas.get("Juan Tapasco"));
+		System.out.println("---------------Buscar------------------");
+		System.out.println("Verificar que exista la llave Juan Tapasco -> " + lstCuentas.containsKey("Juan Tapasco"));
 		System.out.println();
 		
 		//Agregar
-		System.out.println("---------------------------------");
-		System.out.println(lstCuentas.containsKey("Stefania Aguirre ".trim()));
-		System.out.println(agregarCuenta(" Stefania Aguirre", lstCuentas));
-		System.out.println(lstCuentas.get("Stefania Aguirre").getNumeroCuenta());
-		System.out.println(lstCuentas.containsKey("Stefania Aguirre"));
+		System.out.println("----------------Agregar-----------------");
+		System.out.println("Verificar que exista la llave Stefania Aguirre -> " + lstCuentas.containsKey("Stefania Aguirre ".trim()));
+		System.out.println("Mensaje cuando se agrega el usuario Stefania Aguirre -> " + agregarCuenta(" Stefania Aguirre", lstCuentas));
+		System.out.println("Verificar que exista la llave Stefania Aguirre -> " + lstCuentas.containsKey("Stefania Aguirre ".trim()));
+		System.out.println("Mensaje cuando ya se agrega el usuario Stefania Aguirre -> " + agregarCuenta(" Stefania Aguirre", lstCuentas));
 		System.out.println();
 		
 		//Despositar
-		System.out.println("---------------------------------");
-		System.out.println("Saldo Antes: " + lstCuentas.get("Stefania Aguirre").getSaldo());
-		System.out.println(depositar(2, 500, lstCuentas));
-		System.out.println("Saldo Despuï¿½s: " + lstCuentas.get("Stefania Aguirre").getSaldo());
+		System.out.println("----------------Despositar-----------------");
+		System.out.println("Saldo antes Stefania Aguirre -> " + lstCuentas.get("Stefania Aguirre").getSaldo());
+		System.out.println("Mensaje cuando se desposita 500 con el numero de cuenta de Stefania Aguirre -> "+depositar(2, 500, lstCuentas));
+		System.out.println("Saldo despuï¿½s Stefania Aguirre -> " + lstCuentas.get("Stefania Aguirre").getSaldo());
+		System.out.println("Mensaje cuando se desposita 500 con el numero de cuenta incexistente -> "+depositar(4, 500, lstCuentas));
 		System.out.println();
 		
 		//Retirar
-		System.out.println("---------------------------------");
-		System.out.println("Saldo Antes del Retiro: " + lstCuentas.get("Stefania Aguirre").getSaldo());
+		System.out.println("----------------Retirar----------------");
+		System.out.println("Saldo en cuenta de Stefania Aguirre antes del retiro: " + lstCuentas.get("Stefania Aguirre").getSaldo());
 		System.out.println(retirar(2, 600, lstCuentas));
 		System.out.println(retirar(2, 8, lstCuentas));
 		System.out.println(retirar(2, 2, lstCuentas));
@@ -66,7 +66,7 @@ public class Prueba {
 		System.out.println();
 		
 		//CrearBolsillo
-		System.out.println("---------------------------------");
+		System.out.println("----------------CrearBolsillo-----------------");
 		System.out.println("Idbolsillo antes : " + lstCuentas.get("Juan Tapasco").getBolsilloId());
 		System.out.println(abrirBolsillo(0, lstCuentas));
 		System.out.println("Idbolsillo despuï¿½s : " + lstCuentas.get("Juan Tapasco").getBolsilloId());
@@ -74,13 +74,13 @@ public class Prueba {
 		System.out.println();
 				
 		//Trasladar a bolsillo
-		System.out.println("---------------------------------");
+		System.out.println("----------------Trasladar a bolsillo-----------------");
 		System.out.println("Saldo Antes del traslado: " + lstCuentas.get("Stefania Aguirre").getSaldo());
 		System.out.println("SaldoBolsillo antes del traslado: " + lstCuentas.get("Stefania Aguirre").getBolsilloSaldo());
 		System.out.println(trasladar(2, 600, lstCuentas));
 		
 		//Crear el bolsillo de prueba
-		System.out.println("---------------------------------");
+		System.out.println("----------------Crear el bolsillo de prueba-----------------");
 		lstCuentas.get("Stefania Aguirre").setBolsilloId("2b");
 		System.out.println(trasladar(2, 90, lstCuentas));
 		System.out.println("Saldo Despuï¿½s del traslado: " + lstCuentas.get("Stefania Aguirre").getSaldo());
@@ -88,7 +88,7 @@ public class Prueba {
 		System.out.println();
 		
 		//Consultar saldo
-		System.out.println("---------------------------------");
+		System.out.println("----------------Consultar saldo-----------------");
 		System.out.println("Saldo: " + consultarSaldoCuenta("2", lstCuentas));
 		System.out.println("SaldoBolsillo: " + consultarSaldoCuenta("2b", lstCuentas));
 		System.out.println("SaldoBolsillo de una cuenta inexistente: " + consultarSaldoCuenta("3b", lstCuentas));
@@ -97,13 +97,13 @@ public class Prueba {
 		
 		
 		//Cancelar Bolsillo
-		System.out.println("---------------------------------");
+		System.out.println("-----------------Cancelar Bolsillo----------------");
 		System.out.println("Eliminar un bolsillo de una cuenta que si lo tiene: " + cerrarBolsillo("0b", lstCuentas));
 		System.out.println("Eliminar un bolsillo de una cuenta que no lo tiene: " + cerrarBolsillo("0b", lstCuentas));
 		System.out.println();
 		
 		//Eliminar cuenta de ahorros
-		System.out.println("---------------------------------");
+		System.out.println("---------------Eliminar cuenta de ahorros------------------");
 		System.out.println("Eliminar una cuenta que existe: " + eliminarCuenta(0, lstCuentas));
 		System.out.println("Eliminar una cuenta que no existe: " + eliminarCuenta(0, lstCuentas));
 		System.out.println("---------------------------------");
@@ -127,7 +127,10 @@ public class Prueba {
 		mensajes=guardarMensaje(mensajes,"Abrir Cuenta","Prueba");
 		mensajes=guardarMensaje(mensajes,"Abrir Bolsillo", "Prueba2");
 		System.out.println("Mensajes : "+mensajes);
+		System.out.println();
 		
+		
+		System.out.println("---------------Prueba final------------------");
 		System.out.println("---------------------------------");
 		System.out.println(eliminarCuenta(2, lstCuentas));
 		System.out.println(eliminarCuenta(1, lstCuentas));
@@ -190,13 +193,12 @@ public class Prueba {
 			if(encontrada.getSaldo()==0) {
 				if(encontrada.getBolsilloId().equals("")) {
 					lstCuentas.remove(llave);
-					return "Número de cuenta eliminado con exito " + numeroCuenta;	
+					return "Nï¿½mero de cuenta eliminado con exito " + numeroCuenta;	
 				}
 				return "Error Bolsillo existente, en cuenta " + numeroCuenta;
 			}
 			return "Error Saldo existente en cuenta " + numeroCuenta;
 		}
-		
 		return "Error Cuenta no encontrada "+ numeroCuenta;		
 	}
 	
@@ -248,10 +250,10 @@ public class Prueba {
 		if (!llave.equals("")) {
 			Cuenta encontrada = lstCuentas.get(llave); 
 			encontrada.setSaldo(encontrada.getSaldo()+deposito);
-			return "Depósito exitoso en cuenta de ahorros " + numeroCuenta;
+			return "Depï¿½sito exitoso en cuenta de ahorros " + numeroCuenta;
 		}
 		
-		return "Error en deposito de cuenta de ahorros. Número de cuenta no encontrada";
+		return "Error en deposito de cuenta de ahorros. Nï¿½mero de cuenta no encontrada";
 	}
 
 	/**
@@ -274,7 +276,7 @@ public class Prueba {
 			return "Error Fondos insuficientes en cuenta de ahorros " + numeroCuenta;
 		}
 		
-		return "Error en retiro de cuenta de ahorros. Número de cuenta no encontrada";
+		return "Error en retiro de cuenta de ahorros. Nï¿½mero de cuenta no encontrada";
 	}
 	
 	/**
@@ -300,7 +302,7 @@ public class Prueba {
 			}
 			return "Error No existe bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "Error en traslado de cuenta de ahorros. Número de cuenta no encontrada";
+		return "Error en traslado de cuenta de ahorros. Nï¿½mero de cuenta no encontrada";
 	}
 	
 	/**
@@ -318,11 +320,11 @@ public class Prueba {
 			if(!encontrada.getBolsilloId().equals(numeroCuenta+"b")) {
 				encontrada.setBolsilloId(numeroCuenta+"b");
 				encontrada.setBolsilloSaldo(0);
-				return "Creación de bolsillo exitosa " +  encontrada.getBolsilloId();
+				return "Creaciï¿½n de bolsillo exitosa " +  encontrada.getBolsilloId();
 			}
 			return "Error Ya existe un bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "Error en traslado de cuenta de ahorros. Número de cuenta no encontrada";
+		return "Error en creacion de bolsillo. Nï¿½mero de cuenta no encontrada";
 	}
 	
 	/**
@@ -342,15 +344,15 @@ public class Prueba {
 				encontrada.setBolsilloId("");
 				encontrada.setSaldo(encontrada.getSaldo()+ encontrada.getBolsilloSaldo());
 				encontrada.setBolsilloSaldo(0);
-				return "Cancelación de bolsillo exitosa " +  numeroCuenta;
+				return "Cancelaciï¿½n de bolsillo exitosa " +  numeroCuenta;
 			}
 			return "Error No existe un bolsillo en la cuenta " + numeroCuenta;
 		}
-		return "Error en eliminación de bolsillo. Número de cuenta no encontrada";
+		return "Error en eliminaciï¿½n de bolsillo. Nï¿½mero de cuenta no encontrada";
 	}
 	
 	/**
-	 * Método encargado de cargar los datos automáticamente de las transacciones del archivo de texto
+	 * Mï¿½todo encargado de cargar los datos automï¿½ticamente de las transacciones del archivo de texto
 	 * @param nombreArchivo nombre del archivo de texto 
 	 * @return lista de mensajes de exito o error 
 	 * @throws FileNotFoundException
@@ -420,9 +422,9 @@ public class Prueba {
 	}
 	
 	/**
-	 * Método para guardar los mensajes de las operaciones que se van realizando
-	 * @param registro variable donde están los mensajes guardados
-	 * @param accion palabra clave de la operación bancaria
+	 * Mï¿½todo para guardar los mensajes de las operaciones que se van realizando
+	 * @param registro variable donde estï¿½n los mensajes guardados
+	 * @param accion palabra clave de la operaciï¿½n bancaria
 	 * @param mensaje mensaje de respuesta enviado por el servidor al cliente
 	 * @return el registro completo de las operaciones bancarias que se han realizado
 	 */
