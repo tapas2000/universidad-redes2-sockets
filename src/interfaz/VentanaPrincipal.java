@@ -14,11 +14,17 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.border.EtchedBorder;
+
+
+import logica.EchoTCPClient;
+import logica.EchoTCPClientProtocol;
+
 import java.awt.Panel;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.net.Socket;
 import java.awt.event.ActionEvent;
 
 public class VentanaPrincipal extends JFrame implements ActionListener{
@@ -33,11 +39,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
     private JLabel lblNombre;
     private JLabel lblServidor;
     private JTextArea textArea;
-    
+	public static EchoTCPClient ec = new EchoTCPClient();	
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+			
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -131,12 +139,19 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 	}
 	
+	
 	public void actionPerformed(ActionEvent e) {
 	
 	int m = comboBox.getSelectedIndex();
-	String mensaje1,mensaje2,mensaje3;
+	String mensaje1,mensaje2, respuesta;
 
-	    if(e.getSource()== btnAceptar) {	
+		/*
+		 * Botón que activa la opción aceptar para los valores del combobox
+		 * Y limpia los campos de texto si tienen valores con el setText("")
+		 */
+	    if(e.getSource()== btnAceptar) {
+	    	
+	    	//Opción 0 del combobox Abrir cuenta
 	    	if(m == 0) {
 	    		lblApellido.setVisible(true);
 	    		txtNombre.setVisible(true);
@@ -147,27 +162,28 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	    		txtNombre.setText("");
 	    		txtApellido.setText("");
 	    	}
+	    	//Opción 1 del combobox Crear un bolsillo
 	    	if(m == 1) {
 	        	lblApellido.setVisible(false);
 	        	txtApellido.setVisible(false);
 				lblNombre.setText("# cuenta de ahorros:");
 				txtNombre.setText("");
 	    	}
-	    	// Opción 1 combobox Abrir Cancelar cuenta de ahorros  
+	    	//Opción 2 del combobox Cancelar bolsillo
 	    	if(m == 2) {
 	    		lblApellido.setVisible(false);
 	        	txtApellido.setVisible(false);
 	    		lblNombre.setText("# cuenta de bolsillo:");
 	    		txtNombre.setText("");
 	    	}
-	    	// Opción 1 combobox Abrir Depositar dinero en una cuenta 
+	    	//Opción 3 del combobox Cancelar cuenta de ahorros
 	    	if(m == 3) {
 	    		lblApellido.setVisible(false);
 	        	txtApellido.setVisible(false);
 				lblNombre.setText("# cuenta de ahorros:");
 				txtNombre.setText("");
 	        }
-	        // Opción 1 combobox Abrir Retirar dinero de una cuenta
+	    	//Opción 4 del combobox Depositar dinero en una cuenta
 	        if(m == 4) {
 	        	lblApellido.setVisible(true);
 	        	txtApellido.setVisible(true);
@@ -176,7 +192,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				txtNombre.setText("");
 	    		txtApellido.setText("");
 	        }
-	        // Opción 1 combobox Abrir Trasladar dinero a un bolsillo
+	    	//Opción 5 del combobox Retirar dinero de una cuenta
 	        if(m == 5) {
 	        	lblApellido.setVisible(true);
 	        	txtApellido.setVisible(true);
@@ -185,7 +201,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				txtNombre.setText("");
 	    		txtApellido.setText("");
 	        }
-	        // Opción 1 combobox Abrir Trasladar consultar Saldo
+	    	//Opción 6 del combobox Trasladar dinero a un bolsillo
 	        if(m == 6) {
 	        	lblApellido.setVisible(true);
 	        	txtApellido.setVisible(true);
@@ -194,7 +210,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				txtNombre.setText("");
 	    		txtApellido.setText("");
 	        }
-	        // Opción 1 combobox Abrir Trasladar consultar Saldo
+	    	//Opción 7 del combobox Consultar saldo
 	        if(m == 7) {
 	        	lblApellido.setVisible(false);
 	        	txtApellido.setVisible(false);
@@ -203,53 +219,97 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	        }
 		
 	   }
-	       
+	       /*
+	        * Botón enviar, despues de almacenar los valores de los txt en variables con el botón se envían estos 
+	        * valores al metodo init2 de la clase EchoTCPCliente con los datos  y se setea el text area con la 
+	        * información resultante de la acción 
+	        */
 		if(e.getSource()==btnEnviar ) {
+			//Opción 0 del combobox Abrir cuenta
 			if(m == 0) {
-				mensaje1 = txtApellido.getText();
-				mensaje2 = txtNombre.getText();	
-				System.out.println(mensaje1 + " " + mensaje2);	
-			    System.out.println(" Holaaaaaaaaaaaaa" );
-		        textArea.setText("File TCP Client ... " + "\nConexión aceptada en el lado del servidor");
+				mensaje2 = txtApellido.getText();
+				mensaje1 = txtNombre.getText();	
+		        try {
+					respuesta = ec.init2(mensaje1,mensaje2,m);
+					textArea.setText(respuesta);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
+			//Opción 1 del combobox Crear un bolsillo
 			if(m == 1) {
-				mensaje2 = txtNombre.getText();	
-				System.out.println(mensaje2);	
-		        textArea.setText("File TCP Client ... " + "\nConexión aceptada en el lado del servidor");	
+				mensaje1 = txtNombre.getText();	
+		        try {
+					respuesta = ec.init2(mensaje1,"",m);
+					textArea.setText(respuesta);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
+			//Opción 2 del combobox Cancelar bolsillo
 			if(m == 2) {
-				mensaje2 = txtNombre.getText();	
-				System.out.println(mensaje2);			
+				mensaje1 = txtNombre.getText();			
+				 try {
+					 respuesta=ec.init2(mensaje1,"",m);
+					 textArea.setText(respuesta);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 			}
+			//Opción 3 del combobox Cancelar cuenta de ahorros
 			if(m == 3) {
-				mensaje2 = txtNombre.getText();	
-				System.out.println(mensaje2);	
+				mensaje1 = txtNombre.getText();	
+				 try {
+						respuesta=ec.init2(mensaje1,"",m);
+						textArea.setText(respuesta);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 			}
+			//Opción 4 del combobox Depositar dinero en una cuenta
 			if(m == 4) {
-				mensaje1 = txtApellido.getText();
-				mensaje2 = txtNombre.getText();	
-				System.out.println(mensaje1 + " " + mensaje2);	
+				mensaje2 = txtApellido.getText();
+				mensaje1 = txtNombre.getText();	
+				 try {
+					    System.out.println(mensaje1 + "   " + mensaje2 + "   ");
+						respuesta = ec.init2(mensaje1,mensaje2,m);
+						textArea.setText(respuesta);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}	
 			}
+			//Opción 5 del combobox Retirar dinero de una cuenta
 			if(m == 5) {
-				mensaje1 = txtApellido.getText();
-				mensaje2 = txtNombre.getText();	
-				System.out.println(mensaje1 + " " + mensaje2);	
+				mensaje2 = txtApellido.getText();
+				mensaje1 = txtNombre.getText();	
+				 try {
+						respuesta = ec.init2(mensaje1,mensaje2,m);
+						textArea.setText(respuesta);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}	
 			}
+			//Opción 6 del combobox Trasladar dinero a un bolsillo
 			if(m == 6) {
-				mensaje1 = txtApellido.getText();
-				mensaje2 = txtNombre.getText();	
-				System.out.println(mensaje1 + " " + mensaje2);	
+				mensaje2 = txtApellido.getText();
+				mensaje1 = txtNombre.getText();		
+				 try {
+						respuesta = ec.init2(mensaje1,mensaje2,m);
+						textArea.setText(respuesta);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}	
 			}
+			//Opción 7 del combobox Consultar saldo
 			if(m == 7) {
-				mensaje2 = txtNombre.getText();	
-				System.out.println(mensaje2);	
+				mensaje1 = txtNombre.getText();	
+				 try {
+						respuesta = ec.init2(mensaje1,"",m);
+						textArea.setText(respuesta);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					} 
 			}
-
 		}
-						
-		
 	}
-	
 }
-
-
