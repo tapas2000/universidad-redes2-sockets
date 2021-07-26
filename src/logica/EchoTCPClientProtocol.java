@@ -7,6 +7,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+/**
+ * Clase EchoTCPClientProtocol
+ * @author Stefania Aguirre López, Angelica Arroyave Duque, Juan Felipe Tapasco Henao
+ */
 public class EchoTCPClientProtocol {
 	private static final Scanner SCANNER = new Scanner(System.in);
 	
@@ -112,6 +116,11 @@ public class EchoTCPClientProtocol {
 		System.out.println("From server: " + fromServer2);
 	}
 
+	/**
+	 * Crea los flujos de conexión
+	 * @param socket
+	 * @throws IOException
+	 */
 	private static void createStreams(Socket socket) throws IOException {
 		toNetwork = new PrintWriter(socket.getOutputStream(), true);
 		fromNetwork = new BufferedReader(new InputStreamReader(socket.getInputStream()));

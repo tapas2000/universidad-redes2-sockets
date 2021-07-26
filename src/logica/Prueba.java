@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * Clase Prueba
+ * @author Stefania Aguirre López, Angelica Arroyave Duque, Juan Felipe Tapasco Henao
+ */
 public class Prueba {
 	private static HashMap<String, Cuenta> lstCuentas =  new HashMap<>();
 	
@@ -150,11 +154,9 @@ public class Prueba {
 		//Agregar la nueva cuenta		
 		int numCuenta = lstCuentas.size();		
 		String llave = buscarNumeroCuenta(numCuenta,lstCuentas);
-		//System.out.println(numCuenta +" llave : " +llave);
 		
 		if(lstCuentas.size()>0) {
 			while (llave=="") {
-				//System.out.println(numCuenta + llave);
 				numCuenta = numCuenta-1;
 				llave = buscarNumeroCuenta(numCuenta,lstCuentas);
 			}
@@ -170,9 +172,7 @@ public class Prueba {
 		
 		return "Apertura exitosa de cuenta de ahorros "+ 0;	
 		
-		}
-		
-		
+		}		
 		
 	/**
 	 * Metodo que elimina una nueva cuenta verificando si esta existe y eliminandola si lo hace
@@ -208,7 +208,6 @@ public class Prueba {
 	 */
 	public static String consultarSaldoCuenta(String numCuenta,HashMap<String, Cuenta> lstCuentas) {
 		
-		
 		if(numCuenta.contains("b")) {
 			int  numeroCuenta = Integer.parseInt(numCuenta.substring(0,numCuenta.length()-1));	
 			String llave = buscarNumeroCuenta(numeroCuenta,lstCuentas);
@@ -234,6 +233,7 @@ public class Prueba {
 		
 		return "Error Cuenta no encontrada "+ numeroCuenta;		
 	}
+	
 	/**
 	 * Metodo que deposita a una cuenta dada el numero de esta
 	 * @param numeroCuenta Es el numero de cuenta la que se desea hacer el deposito
@@ -276,6 +276,7 @@ public class Prueba {
 		
 		return "Error en retiro de cuenta de ahorros. Número de cuenta no encontrada";
 	}
+	
 	/**
 	 * Metodo que traslada el dinero al saldo del bolsillo de la misma cuenta
 	 * @param numeroCuenta Es el numero de cuenta la que se desea hacer el traslado
@@ -431,7 +432,6 @@ public class Prueba {
 		
 		registro += "{" +tiempo[0]+","+tiempo[1]+","+accion+","+mensaje+"},\n";
 		
-		return registro;
-		
+		return registro;		
 	}
 }

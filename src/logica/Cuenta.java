@@ -1,5 +1,9 @@
 package logica;
 
+/**
+ * Clase Cuenta
+ * @author Stefania Aguirre López, Angelica Arroyave Duque, Juan Felipe Tapasco Henao
+ */
 public class Cuenta {
 	
 	public int numeroCuenta;
@@ -8,6 +12,11 @@ public class Cuenta {
 	public String bolsilloId;
 	public double bolsilloSaldo;
 	
+	/**
+	 * Constructor
+	 * @param numeroCuenta número de cuenta
+	 * @param nombrePropietario nombre de la persona dueña de la cuenta
+	 */
 	public Cuenta(int numeroCuenta, String nombrePropietario) {
 		super();
 		this.numeroCuenta = numeroCuenta;
@@ -17,6 +26,7 @@ public class Cuenta {
 		this.bolsilloSaldo = 0;
 	}
 	
+	// Getters y Setters
 	public int getNumeroCuenta() {
 		return numeroCuenta;
 	}

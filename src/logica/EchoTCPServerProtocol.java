@@ -8,6 +8,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Clase EchoTCPServerProtocol
+ * @author Stefania Aguirre López, Angelica Arroyave Duque, Juan Felipe Tapasco Henao
+ */
 public class EchoTCPServerProtocol {
 	private static PrintWriter toNetwork;
 	private static BufferedReader fromNetwork;
@@ -86,6 +90,12 @@ public class EchoTCPServerProtocol {
 		System.out.println("Sent to client: " + answer2);
 	}
 	
+	/**
+	 * Método encargado de convertir el mensaje del servidor que es un arraylist a 
+	 * un String separado por guion "-"
+	 * @param mensajes es el arraylist que llega desde el servidor
+	 * @return un String con la información separado por guin
+	 */
 	public static String mensajeServidor(ArrayList<String> mensajes) {
 		String respuesta = "";
 		
@@ -96,6 +106,11 @@ public class EchoTCPServerProtocol {
 		return respuesta;
 	}
 
+	/**
+	 * Crea los flujos de conexión
+	 * @param socket
+	 * @throws IOException
+	 */
 	private static void createStreams(Socket socket) throws IOException {
 		toNetwork = new PrintWriter(socket.getOutputStream(), true);
 		fromNetwork = new BufferedReader(new InputStreamReader(socket.getInputStream()));
