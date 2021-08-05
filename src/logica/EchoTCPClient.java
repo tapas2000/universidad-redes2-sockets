@@ -20,7 +20,8 @@ public class EchoTCPClient {
 	}
 	
 	public void init() throws Exception {
-		clientSideSocket = new Socket(SERVER, PORT);
+		//clientSideSocket = new Socket(SERVER, PORT);
+		clientSideSocket = new Socket("4.tcp.ngrok.io", 13360);
 		System.out.println("Conexi�n aceptada en el lado del servidor");
 		
 		EchoTCPClientProtocol.protocol(clientSideSocket);
